@@ -1,0 +1,27 @@
+#-*-Perl-*-
+
+$hof{"mf"} = 0;
+
+#Mallard Fillmore http://mallardfillmore.com
+sub mf {
+    my $time = shift;
+    my @ltime = gmtime($time);
+
+    my $base = 'http://mallardfillmore.com';
+    
+    my $rec = {
+	'title' => "Mallard Fillmore",
+	'author' => "Bruce Tinsley",
+	'type' => 'gif',
+	'main' => "$base/",
+	'archives' => "$base/",
+        'referer' => "$base/",
+        'base' => '',
+        'page' => strftime("$base/%Y/%m/%d/?post_type=king_comic",@ltime),
+        'expr' => 'og.image. content="([^"]*)"'
+    };
+    
+    return $rec;
+}
+
+1;
