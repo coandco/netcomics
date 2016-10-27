@@ -1,0 +1,202 @@
+#-*-CPerl-*-
+
+foreach (qw(chickw baldo cl ca zi pibgorn fae grandave adam brevity pswine gf peanuts rose bl 
+	    nq poc tas ga)) {
+    $hof{$_} = 1;
+}
+
+$hof{"hnostrils"} = 1;
+
+#UClick Direct http://www.uclick.com/client/nydn/oh/
+sub uclick {
+    #get arguments ($dir is the directory prefix for main)
+    my ($time,$title,$author,$proc) = @_;
+    my @ltime = gmtime($time);
+
+    my $rec = {
+                'title' => $title,
+                'author' => $author,
+                'type' => 'gif',
+                'main' => "http://www.gocomics.com",
+                'archives' => "http://www.gocomics.com",
+		'referer' => strftime("http:\/\/www.uclick.com\/client\/nydn\/$proc\/%Y\/%m\/%d\/",@ltime),
+                'base' => "",
+                'page' => strftime("http:\/\/www.uclick.com\/client\/nydn\/$proc\/%Y\/%m\/%d\/",@ltime),
+                'expr' => 'comic-feature-body"[^>]*>[^<]*<img[^>]*src="([^"]*)"'
+    };
+    
+}
+
+#MyComicsPage archives http://www.mycomicspage.com
+sub mycomics {
+    #get arguments ($dir is the directory prefix for main)
+    my ($time,$title,$author,$proc) = @_;
+    my @ltime = gmtime($time);
+    my $main = "http://www.gocomics.com";
+
+    my $rec = {
+                'title' => $title,
+                'author' => $author,
+                'type' => 'gif',
+                'main' => $main,
+                'archives' => "http://www.mycomicspage.com",
+		'referer' => strftime("http:\/\/www.gocomics.com\/$proc\/%Y\/%m\/%d\/",@ltime),
+                'base' => "",
+                'page' => strftime("http:\/\/www.gocomics.com\/$proc\/%Y\/%m\/%d\/",@ltime),
+                'expr' => 'feature_item"[^>]*>[^\n]*<img[^>]*src="([^"]*)"'
+    };
+
+    if ($ltime[6] == 0) {
+                $rec->{'size'} = $sun_size if defined($sun_size);
+    } else {
+                $rec->{'size'} = $wd_size if defined($wd_size);
+    }
+    return $rec;
+}
+
+#9 Chickweed Lane http://www.gocomics.com/9chickweedlane
+sub chickw {
+    return mycomics(shift(@_),"9 Chickweed Lane","Brooke McEldowney","9chickweedlane");
+#    return uclick(shift(@_),"9 Chickweed Lane","Brooke McEldowney","cw");
+}
+
+#B.C. http://www.creators.com/comics/bc/
+#sub bc {
+#    return mycomics(shift(@_),"B.C.","Johnny Hart", "bc");
+#}
+
+#Frazz http://www.gocomics.com/frazz
+sub frazz {
+    return mycomics(shift(@_),"Frazz","Jef Mallett","frazz");
+}
+
+#Brevity http://www.gocomics.com/brevity
+sub brevity {
+    return mycomics(shift(@_),"Brevity","Guy & Rodd & Dan","brevity");
+#    return uclick(shift(@_),"Brevity","Guy & Rodd & Dan","bvp");
+}
+
+#Rose is Rose http://www.gocomics.com/roseisrose
+sub rose {
+    return mycomics(shift(@_),"Rose is Rose","Pat Brady and Don Wimmer","roseisrose");
+#    return uclick(shift(@_),"Rose is Rose","Pat Brady and Don Wimmer","rr");
+}
+
+#Frank & Ernest http://www.gocomics.com/frankandernest
+sub fae {
+    return mycomics(shift(@_),"Frank and Ernest","Thaves","frankandernest");
+#    return uclick(shift(@_),"Frank and Ernest","Thaves","fk");
+}
+
+#Pearls Before Swine http://www.gocomics.com/pearlsbeforeswine
+sub pswine {
+    return mycomics(shift(@_),"Pearls Before Swine","Stephen Pastis","pearlsbeforeswine");
+#    return uclick(shift(@_),"Pearls Before Swine","Stephen Pastis","pb");
+}
+
+#Peanuts http://www.gocomics.com/peanuts
+sub peanuts {
+    return mycomics(shift(@_),"Peanuts","Charles Shulz","peanuts");
+#    return uclick(shift(@_),"Peanuts","Charles Shulz","pe");
+}
+
+#Grand Avenue http://www.gocomics.com/grand-avenue
+sub grandave {
+    return mycomics(shift(@_),"Grand Avenue","Steve Breen and Mike Thompson","grand-avenue");
+#    return uclick(shift(@_),"Grand Avenue","Steve Breen and Mike Thompson","gr");
+}
+
+#Get Fuzzy http://www.gocomics.com/getfuzzy
+sub gf {
+    return mycomics(shift(@_),"Get Fuzzy","Darby Conley","getfuzzy");
+#    return uclick(shift(@_),"Get Fuzzy","Darby Conley","gz");
+}
+
+#Garfield http://www.gocomics.com/garfield
+sub ga {
+    return mycomics(shift(@_),"Garfield","Jim Davis","garfield");
+#    return uclick(shift(@_),"Garfield","Jim Davis","ga");
+}
+
+#Over the Hedge http://www.gocomics.com/overthehedge
+#sub oth {
+#    return mycomics(shift(@_),"Over The Hedge","Michael Fry and T Lewis","overthehedge");
+#    return uclick(shift(@_),"Over The Hedge","Michael Fry and T Lewis","oh");
+#}
+
+
+#The Wizard of Id http://www.creators.com/comics/wiz/
+#sub wiz {
+#    return mycomics(shift(@_),"The Wizard of Id","Brant Parker & Johnny Hart","wizardofid");
+#}
+
+#Adam @ Home http://www.gocomics.com/adamathome/
+sub adam {
+    return mycomics(shift(@_),"Adam at Home","Brian Basset","adamathome");
+#    return uclick(shift(@_),"Adam at Home","Brian Basset","ad");
+}
+
+#Baldo http://www.gocomics.com/baldo/
+sub baldo {
+    return mycomics(shift(@_),"Baldo","Hector D. Cantu and Carlos Castellanos","baldo");
+#    return uclick(shift(@_),"Baldo","Hector D. Cantu and Carlos Castellanos","ba");
+}
+
+#Cathy http://www.gocomics.com/cathy/
+sub ca {
+#    return mycomics(shift(@_),"Cathy","Cathy Guisewite","cathy");
+    return uclick(shift(@_),"Cathy","Cathy Guisewite","ca");
+}
+
+#Close to Home http://www.gocomics.com/closetohome/
+sub cl {
+    return mycomics(shift(@_),"Close to Home","John McPherson","closetohome");
+#    return uclick(shift(@_),"Close to Home","John McPherson","cl");
+}
+
+#FoxTrot http://www.foxtrot.com/
+#sub ft {
+#    return mycomics(shift(@_),"FoxTrot","Bill Amend","foxtrot");
+#}
+
+#Non Sequitur http://www.gocomics.com/nonsequitur/
+sub nq {
+    return mycomics(shift(@_),"Non Sequitur","Wiley","nonsequitur");
+#    return uclick(shift(@_),"Non Sequitur","Wiley","nq");
+}
+
+#Ziggy http://www.gocomics.com/ziggy/
+sub zi {
+    return mycomics(shift(@_),"Ziggy","Ziggy and Friends","ziggy");
+#    return uclick(shift(@_),"Ziggy","Ziggy and Friends","zi");
+}
+
+#Pooch Cafe http://www.gocomics.com/poochcafe/
+sub poc {
+    return mycomics(shift(@_),"Pooch Cafe","Paul Gilligan","poochcafe");
+#    return uclick(shift(@_),"Pooch Cafe","Paul Gilligan","poc");
+}
+
+#The Argyle Sweater http://www.gocomics.com/theargylesweater/
+sub tas {
+    return mycomics(shift(@_),"The Argyle Sweater","Scott Hilburn","theargylesweater");
+#    return uclick(shift(@_),"The Argyle Sweater","Scott Hilburn","tas");
+}
+
+#Pibgorn http://www.gocomics.com/pibgorn/
+sub pibgorn {
+    return mycomics(shift(@_),"Pibgorn","Brooke McEldowney","pibgorn");
+#    return uclick(shift(@_),"Pibgorn","Brooke McEldowney","pib");
+}
+
+#Heavenly Nostrils http://www.gocomics.com/heavenly-nostrils/
+sub hnostrils {
+    return mycomics(shift(@_),"Heavenly Nostrils","Dana Simpson","phoebe-and-her-unicorn");
+    #return uclick(shift(@_),"Heavenly Nostrils","Dana Simpson","hev");
+}
+
+
+
+
+1;
+
