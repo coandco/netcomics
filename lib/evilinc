@@ -21,7 +21,7 @@ sub evilinc {
         'base' => "",
         'page' => strftime("$base/%Y/%m/%d/?post_type=comic",@ltime),
         'exprs' => ['comic-thumbnail-in-archive"><a href="([^"]*)"',
-                    'div id="comic">[^<]*<a[^<]*<img src="([^"]*)"']
+                    'div id="comic">[^|]*?<img src="([^"]*)"']
         };
     return $rec;
 }
