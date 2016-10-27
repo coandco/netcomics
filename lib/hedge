@@ -1,0 +1,27 @@
+#-*-Perl-*-
+
+$hof{"oth"} = 2;
+
+#Over The Hedge http://overthehedgeblog.wordpress.com/
+sub oth {
+    my $time = shift;
+    my @ltime = gmtime($time);
+
+    my $base = 'https://overthehedgeblog.wordpress.com';
+    
+    my $rec = {
+	'title' => "Over The Hedge",
+	'author' => "Michael Fry and T Lewis",
+	'type' => 'gif',
+	'main' => "$base/",
+	'archives' => "$base/",
+        'referer' => "$base/",
+        'base' => "",
+        'page' => strftime("$base/%Y/%m/%d/",@ltime),
+        'expr' => strftime('"(https...overthehedgeblog.files.wordpress.com\/%Y\/%m\/oh%y%m%d[^?"]*)[^"]*"',@ltime)
+    };
+    
+    return $rec;
+}
+
+1;
