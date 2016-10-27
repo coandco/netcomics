@@ -20,7 +20,7 @@ sub cad {
 	'base' => '',
 	'archives' => $base . '/archives.php',
 	'page' => "$base/cad/$date",
-	'exprs' => ['(http://[^.]*\.cdn\.cad-comic\.com/comics/[^"]*)"'],
+	'exprs' => ['(http://[^"]*cdn[^.]*\.cad-comic\.com/comics/[^"]*)"'],
 	};
     return $rec;
 }
