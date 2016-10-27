@@ -7,8 +7,21 @@ $hof{"cshock"} = 1;
 sub cshock {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my $monthname = $monthconv[$ltime[4]];
 
-    my $base = "http://www.cultureshockcomic.com";
+    my $year = $ltime[5] + 1900;
+    my $yearstr = 'class="year-title">' . $year;
+    my $prevyearstr = '';
+    if ($year > 2001) {
+        my $prevyear = $year - 1;
+        $prevyearstr = '[^|]*class="year-title">' . $prevyear;
+    }
+
+    my $daystr = '[^|]*archive-date">' . $monthname . " " . $ltime[3] . '<.td><td class="archive-title"><a href="([^"]*)"';
+
+    my $base = "http://cultureshockcomic.com";
 
     my $rec = {
 	'title' => "Culture Shock",
@@ -16,9 +29,10 @@ sub cshock {
 	'type' => 'jpg',
 	'main' => "$base",
 	'archives' => "$base/archives/",
-	'base' => "$base/comics/",
-	'page' => "",
-	'expr' => strftime('(%Y-%m-%d[^"]*)"',@ltime)
+	'base' => "",
+	'page' => "$base/archives/",
+	'exprs' => [$yearstr . $daystr . $prevyearstr,
+                    'og.image" content="([^"]*cultureshockcomic.com[^?]*)\?[^"]*"']
     };
     return $rec;
 }
