@@ -1,0 +1,32 @@
+#-*-Perl-*-
+
+#Add the name of the subroutines to the hash of functions
+#with the number of days from today the comic is available
+$hof{"fid"} = 0;
+
+#Friendship Is Dragons http://friendshipisdragons.thecomicseries.com
+sub fid {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my $monthname = $monthconv[$ltime[4]];
+    my $unpaddate = $ltime[3];
+    my $datestring = $unpaddate . "[a-z][a-z] $monthname " . ($ltime[5] + 1900);
+
+    my $base = "http://friendshipisdragons.thecomicseries.com";
+
+    my $rec = {
+        'title' => "Friendship Is Dragons",
+        'author' => "Newbiespud",
+        'type' => 'png',
+        'main' => "$base",
+        'archives' => "$base/archive/",
+        'base' => "$base/",
+        'page'  => "",
+	'expr' => $datestring . '[^"]*".*(images\/comics\/[^"]*)"'
+        };
+    return $rec;
+}
+
+1;
