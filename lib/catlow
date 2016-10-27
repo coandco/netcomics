@@ -1,7 +1,8 @@
 #-*-Perl-*-
 
 #Tack on the names of the subroutines to the list of functions
-$hof{"catlow"} = 0;
+#The latest comic doesn't show up in the %Y%m%d.html form.
+$hof{"catlow"} = 3;
 
 #Gene Catlow http://genecatlow.com/
 sub catlow {
