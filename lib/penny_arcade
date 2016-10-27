@@ -10,16 +10,17 @@ sub pa {
     return undef if $time < mkgmtime(0,0,0,18,10,98); #first comic Nov. 18, 1998
     my @ltime = gmtime($time);
 
-    my $baseurl = "http://www.penny-arcade.com";
+    my $baseurl = "https://www.penny-arcade.com";
 
     my $rec = {
 	'title' => "Penny Arcade",
 	'author' => "Mike Krahulik and Jerry Holkins",
 	'main' => $baseurl,
 	'archives' => "$baseurl/archive",
+	'size_override' => [900,451],
 	'base' => "",
 	'page' => strftime("$baseurl/comic/%Y/%m/%d", @ltime),
-	'expr' => '"(http:\/\/art.penny-arcade.com\/[^"]*)"'
+	'expr' => '"(http[s]?:\/\/art.penny-arcade.com\/[^"]*)"'
     };
     return $rec;
 }
