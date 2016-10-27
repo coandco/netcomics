@@ -1,0 +1,27 @@
+#-*-Perl-*-
+
+#Tack on the names of the subroutines to the list of functions
+$hof{"multiplex"} = 0;
+
+#Multiplex http://www.multiplexcomic.com/
+sub multiplex {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    return if ($ltime[6] != 1);
+
+    my $rec = {
+	'title' => "Multiplex",
+	'author' => "Gordon McAlpin",
+	'type' => 'jpg',
+	'main' => "http://www.multiplexcomic.com",
+	'archives' => "http://www.multiplexcomic.com/archive.php?name=1",
+	'base' => "http://www.multiplexcomic.com/",
+	'page' => "index.php",
+	'expr' => "(images\/strips\/multiplex-[0-9]+\.[a-z][a-z][a-z])",
+	};
+    return $rec;
+}
+
+1;
+
+
