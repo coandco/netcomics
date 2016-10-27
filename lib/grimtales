@@ -6,15 +6,24 @@ $hof{"grimtales"} = 1;
 sub grimtales {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December");
+    my $monthname = $monthconv[$ltime[4]];
+    my $year = $ltime[5] + 1900;
+    my $datestr = "$monthname $ltime[3], $year";
+
+    my $base = "http://snafu-comics.com";
     
     my $rec = {
 	'title' => "Grim Tales From Down Below",
 	'author' => "Bleedman",
 	'type' => 'jpg',
-	'main' => "http://grim.snafu-comics.com/",
-	'archives' => "http://grim.snafu-comics.com/archive.php",
-	'base' => "http://grim.snafu-comics.com/",
-	'page' => strftime("comics/%y%m%d_grim.jpg", @ltime),
+	'main' => "$base/swmseries/grimtales/",
+	'archives' => "$base/swmseries/grimtales/",
+	'base' => "",
+	'page' => "$base/swmseries/grimtales/",
+	'exprs' => ['href="([^"]*)"><section class="row">[^<]*<div[^>]*><img[^>]*><.div>[^<]*<div[^>]*>[^<]*<p class="pubdate">' . $datestr,
+                    'og.image" content="([^"]*)"']
 	};
     return $rec;
 }
