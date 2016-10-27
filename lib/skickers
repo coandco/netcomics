@@ -1,0 +1,55 @@
+#-*-Perl-*-
+
+#Add the name of the subroutines to the hash of functions
+#with the number of days from today the comic is available
+$hof{"skickers"} = 0;
+
+# Skullkickers http://comic.skullkickers.com
+sub skickers {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "June",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+    my $monthname = $monthconv[$ltime[4]];
+    my $datestr = strftime("$monthname.%d.%y",@ltime);
+
+    my $base = "http://comic.skullkickers.com";
+
+    my $rec = {
+        'title' => "Skullkickers",
+        'author' => "Jim Zub",
+        'type' => 'jpg',
+        'main' => "$base/",
+        'archives' => "$base/comic/archive",
+        'base' => "",
+        'page' => "$base/comic/archive"
+        };
+
+    $rec->{'func'} = sub {
+        my $text = shift;
+        my @update = ();
+        my $update = {};
+        if ($text =~ s/option value="([^"]*)">$datestr//i) {
+            my $arcid = $1;
+            push @update, {
+                'page' => "$base/comic/$arcid",
+                'func' => sub {
+                    my $newtext = shift;
+                    my @relurls = ();
+                    if ($newtext =~ s/src="([^"]*)" id="cc-comic"//i) {
+                        my $file = $1;
+                        push(@relurls, $file);
+                    }
+                    return @relurls;
+                }
+            };
+        }
+        return @update;
+    };
+
+
+    return $rec;
+}
+
+1;

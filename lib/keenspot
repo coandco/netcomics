@@ -4,7 +4,7 @@ foreach (qw(avalon ashfield alice banditb boxjam crfh cotc menagerie ccs elf
    evjake exploit funny gpf greystone helpdesk walky joeav krazyl lwibh
    lostfound  bayside rad greytown mp mcs newshounds nukees ozy pentasmal rpg
    rwaffles ssdd soap suburban sp twolumps wander wendy shockdark 
-   cutewendy youdamn chopping fatjc kpanic exile tseven skickers)) {
+   cutewendy youdamn chopping fatjc kpanic exile tseven)) {
    $hof{"$_"} = 0;
 }
 
@@ -2305,27 +2305,27 @@ sub tseven {
 }
 
 #Skullkickers http://skullkickers.keenspot.com
-sub skickers {
-    my $time = shift;
-    my @ltime = gmtime($time);
-    my @ltime2 = gmtime(time);
-    my $date = strftime("%Y%m%d", @ltime);
-    my $date2 = strftime("%Y%m%d", @ltime2);
-    my $sitebase = "http://skullkickers.keenspot.com";
-    my $base = "http://cdn.skullkickers.keenspot.com";
-
-  my $rec = {
-    'title' => "Skullkickers",
-    'author' => "Jim Zub",
-    'main' => "$sitebase/",
-    'archives' => "$sitebase/archive.html",
-    'base' => "$base",
-    'page' => "/comics/sk$date.jpg",
-  };
-
-  return $rec;
-
-}
+#sub skickers {
+#    my $time = shift;
+#    my @ltime = gmtime($time);
+#    my @ltime2 = gmtime(time);
+#    my $date = strftime("%Y%m%d", @ltime);
+#    my $date2 = strftime("%Y%m%d", @ltime2);
+#    my $sitebase = "http://skullkickers.keenspot.com";
+#    my $base = "http://cdn.skullkickers.keenspot.com";
+#
+#  my $rec = {
+#    'title' => "Skullkickers",
+#    'author' => "Jim Zub",
+#    'main' => "$sitebase/",
+#    'archives' => "$sitebase/archive.html",
+#    'base' => "$base",
+#    'page' => "/comics/sk$date.jpg",
+#  };
+#
+#  return $rec;
+#
+#}
 
    
 
