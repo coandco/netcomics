@@ -9,7 +9,7 @@ sub starpower {
     my $time = shift;
     my @ltime = gmtime($time);
    
-    my $base = 'http://www.starpowercomic.com/';
+    my $base = 'http://www.starpowercomic.com';
 
     my $rec = {
         'title' => "Star Power",
@@ -17,9 +17,9 @@ sub starpower {
         'type' => 'jpg',
         'main' => "$base/",
         'archives' => "$base/archives/",
-        'base' => "$base/comics/",
-        'page' => "",
-        'expr' => strftime('(%Y-%m-%d[^"]*)"',@ltime),
+        'base' => "",
+        'page' => strftime("$base/comic/%Y/%m/%d/",@ltime),
+        'expr' => 'og.image" content="([^"]*)"'
         };
     return $rec;
 }
