@@ -18,9 +18,10 @@ sub drmcninja {
         'type' => 'jpg',
         'main' => "$base/",
         'archives' => "$base/issues/",
-        'base' => "$base/comics/",
-        'page' => "",
-        'expr' => strftime('(%Y-%m-%d[^"]*)"',@ltime)
+        'base' => "$base/",
+        'page' => strftime("archives/%Y/%m/%d/", @ltime),
+        'exprs' => ['comicarchiveframe[^<]*<a href="http:\/\/drmcninja.com\/([^"]*)"',
+                    'id="comic">[^<]*<img src="http:\/\/drmcninja.com\/([^"]*)"']
         };
     return $rec;
 }
