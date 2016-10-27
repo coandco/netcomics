@@ -6,8 +6,13 @@ $hof{"ba"} = 0;
 sub ba {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("january", "february", "march", "april", "may", "june",
+                     "july", "august", "september", "october", "november",
+                     "december");
+    my $monthname = $monthconv[$ltime[4]];
+    my $day = $ltime[3];
 
-    my $base = 'http://www.babyblues.com';
+    my $base = 'http://babyblues.com';
     
     my $rec = {
 	'title' => "Baby Blues",
@@ -17,9 +22,8 @@ sub ba {
 	'archives' => "$base/",
 	'referer' => "$base/index.php",
 	'base' => '',
-	'page' => strftime("$base/archive/index.php?formname=getstrip&GoToDay=%m/%d/%Y",@ltime),
-        'exprs' => ['(http...safr.kingfeatures.com[^"]*)"',
-                    "img src='([^']*)'"]
+	'page' => strftime("$base/comics/${monthname}-${day}-%Y/",@ltime),
+        'expr' => 'og:image" content="([^"]*)"'
     };
     
     return $rec;
