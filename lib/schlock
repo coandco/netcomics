@@ -20,21 +20,21 @@ sub schlock {
         'main' => "$base",
         'archives' => "$base/pages/archives/",
         'base' => "$base/",
-        'page' => strftime("%Y-%m-%d/",@ltime)
+        'page' => strftime("%Y-%m-%d",@ltime)
         };
 
     $rec->{'func'} = sub {
         my $text = shift;
         my @relurls = ();
         while(1) {
-            if ($text =~ s/src=".*?(\/comics\/.*?$date[^"]*)"//i) {
+            if ($text =~ s/img src=".*?(\/strip\/[^"]*)"//i) {
                  my $file = $1;
                  push(@relurls,$file) unless grep(/$file/, @relurls);
             } else {
                  last;
             }
         }
-        if ($text =~ s/post footnote'>([^|]*?)<\/div>//i) {
+        if ($text =~ s/strip-footnote[^>]*>([^|]*?)<\/div>//i) {
             $rec->{'caption'} = $1;
         }
         return reverse @relurls;
