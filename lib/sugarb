@@ -6,15 +6,25 @@ $hof{"sugarb"} = 1;
 sub sugarb {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December");
+    my $monthname = $monthconv[$ltime[4]];
+    my $year = $ltime[5] + 1900;
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $datestr = "$monthname $ltime[3], $year";
+
+    my $base = "http://snafu-comics.com";
     
     my $rec = {
 	'title' => "Sugar Bits",
 	'author' => "Bleedman",
 	'type' => 'jpg',
-	'main' => "http://sugar.snafu-comics.com/",
-	'archives' => "http://sugar.snafu-comics.com/archive.php",
-	'base' => "http://sugar.snafu-comics.com/",
-	'page' => strftime("comics/%y%m%d_sugar.jpg", @ltime),
+	'main' => "$base/swmseries/sugarbits/",
+	'archives' => "$base/swmseries/sugarbits/",
+	'base' => "",
+	'page' => "$base/swmseries/sugarbits/",
+	'exprs' => ['href="([^"]*)"><section class="row">[^<]*<div[^>]*><img[^>]*><.div>[^<]*<div[^>]*>[^<]*<p class="pubdate">' . $datestr,
+                    'og.image" content="([^"]*)"']
 	};
     return $rec;
 }

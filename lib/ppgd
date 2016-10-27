@@ -6,15 +6,24 @@ $hof{"ppgd"} = 1;
 sub ppgd {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December");
+    my $monthname = $monthconv[$ltime[4]];
+    my $year = $ltime[5] + 1900;
+    my $datestr = "$monthname $ltime[3], $year";
+
+    my $base = "http://snafu-comics.com";
     
     my $rec = {
 	'title' => "Powerpuff Girls Doujinshi",
 	'author' => "Bleedman",
 	'type' => 'jpg',
-	'main' => "http://ppg.snafu-comics.com/",
-	'archives' => "http://ppg.snafu-comics.com/archive.php",
-	'base' => "http://ppg.snafu-comics.com/",
-	'page' => strftime("comics/%y%m%d_ppg.jpg", @ltime),
+	'main' => "$base/swmseries/powerpuffgirls/",
+	'archives' => "$base/swmseries/powerpuffgirls/",
+	'base' => "",
+	'page' => "$base/swmseries/powerpuffgirls/",
+	'exprs' => ['href="([^"]*)"><section class="row">[^<]*<div[^>]*><img[^>]*><.div>[^<]*<div[^>]*>[^<]*<p class="pubdate">' . $datestr,
+                    'og.image" content="([^"]*)"']
 	};
     return $rec;
 }
