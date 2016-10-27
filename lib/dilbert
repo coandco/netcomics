@@ -1,0 +1,35 @@
+#-*-Perl-*-
+
+#Tack on the names of the subroutines to the list of functions
+$hof{"dilbert"} = 1;
+
+sub dilbert {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December");
+    my @dayconv = ("Sunday", "Monday", "Tuesday", "Wednesday", 
+                   "Thursday", "Friday", "Saturday");
+    my $monthname = $monthconv[$ltime[4]];
+    my $monthnum = $ltime[4] + 1; #ltime is zero-indexed
+    my $year = $ltime[5] + 1900;
+    my $dayname = $dayconv[$ltime[6]];
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $datestring = "$monthname $paddate,<.span>";
+    
+    my $rec = {
+	'title' => "Dilbert",
+	'author' => "Scott Adams",
+	'type' => 'gif',
+	'main' => "http://dilbert.com/",
+	'archives' => "http://www.dilbert.com/",
+	'base' => "",
+	'page' => strftime("http://dilbert.com/strip/%Y-%m-%d", @ltime),
+	'expr' => 'class="[^"]*img-comic[^"]*"[^>]*src="([^"]*)"'
+	};
+    return $rec;
+}
+
+1;
+
+
