@@ -1,0 +1,27 @@
+#-*-Perl-*-
+
+$hof{"nexttown"} = 0;
+
+# Next Town Over http://www.nexttownover.net
+sub nexttown {
+    my $time = shift;
+    my @ltime = gmtime($time);
+
+    my $base = 'http://www.nexttownover.net';
+    
+    my $rec = {
+	'title' => "Next Town Over",
+	'author' => "Erin Mehlos",
+	'type' => 'jpg',
+	'main' => "$base/",
+	'archives' => "$base/comic-archive/",
+	'base' => "",
+	'page' => strftime("$base/?m=%Y%m%d",@ltime),
+	'exprs' => ['comicarchiveframeinpost">[^<]*<a href="([^"]*)"',
+                    'comicpane"><a[^>]*><img src="([^"]*)"']
+    };
+    
+    return $rec;
+}
+
+1;
