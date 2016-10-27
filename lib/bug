@@ -2,7 +2,7 @@
 
 #Add the name of the subroutines to the hash of functions
 #with the number of days from today the comic is available
-$hof{"bug"} = 0;
+$hof{"bug"} = 1;
 
 #Bug Martini http://www.bugmartini.com/
 sub bug {
@@ -15,7 +15,7 @@ sub bug {
     my $year = $ltime[5] + 1900;
     my $yearstr = 'class="year-title">' . $year;
     my $prevyearstr = '';
-    if ($year >= 2009) {
+    if ($year > 2009) {
         my $prevyear = $year - 1;
         $prevyearstr = '[^|]*class="year-title">' . $prevyear;
     }
@@ -31,9 +31,9 @@ sub bug {
         'main' => "$base",
         'archives' => "$base/archives/",
         'base' => "",
-        'page'  => "$base/archives/",
+        'page'  => "http://www.bugmartini.com/archives/",
 	'exprs' => [$yearstr . $daystr . $prevyearstr,
-                    'twitter.image" content="(http...www.bugmartini.com[^"]*)"']
+                    'twitter.image" content="([^"]*www.bugmartini.com[^?]*)\?[^"]*"']
         };
     return $rec;
 }
