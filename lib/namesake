@@ -10,11 +10,8 @@ sub namesake {
     my @ltime = gmtime($time);
     my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-    my @dayconv = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
     my $monthname = $monthconv[$ltime[4]];
-    my $dayname = $dayconv[$ltime[6]];
-    my $paddate = sprintf("%02d", $ltime[3]);
-    my $datestring = "$monthname $paddate, " . ($ltime[5] + 1900);
+    my $datestr = strftime("$monthname.%d.%y",@ltime);
 
     #return if (($ltime[6] != 1) && ($ltime[6] != 5));    
 
@@ -25,12 +22,33 @@ sub namesake {
         'author' => "Megan Lavey-Heaton and Isabelle Melcon",
         'type' => 'jpg',
         'main' => "$base",
-        'archives' => "$base/archives/",
+        'archives' => "$base/comic/archive",
         'base' => "",
-        'page' => "$base/archives/",
-	'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
-                    '<div id="comic">[^|]*?<img src="([^"]*)"']
+        'page' => "$base/comic/archive",
         };
+
+     $rec->{'func'} = sub {
+        my $text = shift;
+        my @update = ();
+        my $update = {};
+        if ($text =~ s/option value="([^"]*)">$datestr//i) {
+            my $arcid = $1;
+            push @update, {
+                'page' => "$base/comic/$arcid",
+                'func' => sub {
+                    my $newtext = shift;
+                    my @relurls = ();
+                    if ($newtext =~ s/src="([^"]*)" id="cc-comic"//i) {
+                        my $file = $1;
+                        push(@relurls, $file);
+                    }
+                    return @relurls;
+                }
+            };
+        }
+        return @update;
+    };
+
     return $rec;
 }
 
