@@ -1,0 +1,29 @@
+#-*-Perl-*-
+
+#Tack on the names of the subroutines to the list of functions
+$hof{"gunnerkrigg"} = 0;
+
+#Gunnerkrigg Court http://www.gunnerkrigg.com/
+sub gunnerkrigg {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    
+    #Only get the comic MWF
+    return if (($ltime[6] != 1) && ($ltime[6] != 3) && ($ltime[6] != 5));
+
+    my $rec = {
+	'title' => "Gunnerkrigg Court",
+	'author' => "Tom Siddell",
+	'type' => 'jpg',
+	'main' => "http://www.gunnerkrigg.com",
+	'archives' => "http://www.gunnerkrigg.com/archive.php",
+	'base' => "http://www.gunnerkrigg.com/",
+	'page' => 'index2.php',
+	'expr' => "(comics\/[0-9]*\.jpg)"
+	};
+    return $rec;
+}
+
+1;
+
+
