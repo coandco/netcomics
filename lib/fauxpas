@@ -17,7 +17,7 @@ sub fauxpas {
 	'archives' => "http://www.ozfoxes.net/cgi/pl-fp1.cgi",
 	'base' => "http://ozfoxes.com/",
 	'page' => "fauxpas.htm",
-	'expr' => "(fp\/fp[0-9-]+.jpg)",
+	'expr' => "(fp\/fp[0-9a-z-]+.jpg)",
 	};
     return $rec;
 }
