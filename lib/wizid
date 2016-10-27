@@ -1,0 +1,36 @@
+#-*-Perl-*-
+
+$hof{"wiz"} = 1;
+
+# The Wizard of Id http://johnhartstudios.com/wizardofid/
+sub wiz {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("january", "february", "march", "april", "may", "june",
+                     "july", "august", "september", "october", "november", "december");
+    my @dayconv = ("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+    #return if (($ltime[6] == 0) || ($ltime[6] == 6));
+    my $monthname = $monthconv[$ltime[4]];
+    my $dayname = $dayconv[$ltime[6]];
+    my $day = $ltime[3];
+    my $year = $ltime[5] + 1900;
+    my $datestring = "$dayname-$monthname-$day-$year";
+
+    my $base = 'http://johnhartstudios.com';
+
+    my $rec = {
+	'title' => "The Wizard of Id",
+	'author' => "Brant Parker & Johnny Hart",
+	'type' => 'gif',
+	'main' => "$base/wizardofid/",
+	'archives' => "$base/wizardofid/",
+        'referer' => "$base/wizardofid/",
+        'base' => "$base",
+        'page' => strftime("/wizardofid/$datestring/",@ltime),
+        'expr' => 'og:image" content="([^"]*)"'
+    };
+    
+    return $rec;
+}
+
+1;
