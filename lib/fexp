@@ -1,0 +1,34 @@
+#-*-Perl-*-
+
+#Add the name of the subroutines to the hash of functions
+#with the number of days from today the comic is available
+$hof{"fexp"} = 1;
+
+#Furry Experience http://furryexperience.smackjeeves.com
+sub fexp {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+    my $monthstr = $monthconv[$ltime[4]];
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $datestring = "$paddate $monthstr " . ($ltime[5] + 1900); 
+    #return if (($ltime[6] != 1) && ($ltime[6] != 5));    
+
+    my $base = "http://furryexperience.smackjeeves.com";
+
+    my $rec = {
+        'title' => "Furry Experience",
+        'author' => "Ellen Natalie",
+        'type' => 'jpg',
+        'main' => "$base/",
+        'archives' => "$base/archive/",
+        'base' => "",
+        'page' => "$base/comics/",
+	'expr' => $datestring . '[^|]*?img src="([^"]*)"[^>]*id="comic_image"'
+        };
+    return $rec;
+}
+
+1;
