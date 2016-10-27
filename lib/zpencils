@@ -19,9 +19,9 @@ sub zpencils {
         'main' => "$base",
         'archives' => "$base/archives/",
         'base' => "",
-        'page'  => strftime("$base/%Y/%m/%d/",@ltime),
+        'page'  => strftime("$base/comic/%Y/%m/%d/",@ltime),
 	'exprs' => ['<h2 class="post-title">[^>]*(http:\/\/[^\/]*\/comic\/[^"]*)"',
-                    strftime('(http:\/\/[^\/]*\/comics\/%Y-%m-%d[^"]*)"',@ltime)]
+                    'og:image" content="([^"]*)"']
         };
     return $rec;
 }
