@@ -1,0 +1,28 @@
+#-*-Perl-*-
+
+#Tack on the names of the subroutines to the list of functions
+$hof{"drive"} = 1;
+
+#Drive http://www.drivecomic.com/
+sub drive {
+    my $time = shift;
+    my @ltime = gmtime($time);
+
+    my $base = "http://www.drivecomic.com";
+
+    my $rec = {
+	'title' => "Drive",
+	'author' => "Dave Kellett",
+	'type' => 'png',
+	'main' => "$base",
+	'archives' => "$base/archive/archives.html",
+	'base' => "",
+	'page' => strftime("$base/archive/%y%m%d.html", @ltime),
+	'expr' => '(http...cdn.drivecomic.com.strips[^"]*)"'
+	};
+    return $rec;
+}
+
+1;
+
+
