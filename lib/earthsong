@@ -10,14 +10,15 @@ sub earthsong {
     return if (($ltime[6] != 1) && ($ltime[6] != 4));
 
     my $rec = {
-	'title' => "Freefall",
+	'title' => "Earthsong",
 	'author' => "Lady Yates",
 	'type' => 'jpg',
 	'main' => "http://www.earthsongsaga.com",
-	'archives' => "http://www.earthsongsaga.com/archives.html",
+	'archives' => "http://www.earthsongsaga.com/archives.php",
 	'base' => "http://www.earthsongsaga.com/",
-	'page' => "index.html",
-	'expr' => "(images\/vol[0-9]\/ch[0-9]\/[0-9]+.[a-z][a-z][a-z])",
+	'page' => "index.php",
+	'exprs' => ["(vol[0-9]+\/[0-9]+\.php)",
+		    "(images\/vol[0-9]+\/ch[0-9]+\/[0-9]+.[a-z][a-z][a-z])"],
 	};
     return $rec;
 }
