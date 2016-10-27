@@ -67,6 +67,8 @@ sub proxy {
 sub request {
 	my ($self,$request) = @_;
 	my ($method,$url) = ($request->method,$request->url);
+	my $url_escaped = $url;
+	$url_escaped =~ s/ /%20/g;
 	die "Error: HTTP request type $method uknown or unimplemented.\n"
 	    unless ($method =~ /^GET$/);
 	my $cmdline = $self->{'cmd'};
@@ -82,9 +84,9 @@ sub request {
 		}
 	}
 	if ($cmdline =~ /%[Uu]/) {
-	    $cmdline =~ s/%[Uu]/$url/;
+	    $cmdline =~ s/%[Uu]/$url_escaped/;
 	} else {
-	    $cmdline .= " '$url'";
+	    $cmdline .= " '$url_escaped'";
 	}
 	print "Running: '$env$cmdline'." if $self->{'extra_verbose'};
 	my $content = `$env$cmdline`;
