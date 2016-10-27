@@ -371,7 +371,7 @@ sub get_comics {
 			require HTTP::Response;
 			require HTTP::Request::Common;
 			$ua = LWP::UserAgent->new(parse_head => 0);
-			$ua->agent("Mozilla/5.0");
+			$ua->agent("User-Agent=Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.1) Gecko/2008070208 Firefox/3.0.1");
                         $ua->timeout(15);
 			$new_request = sub {
 				my $request = new HTTP::Request 'GET', shift;
