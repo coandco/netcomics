@@ -9,7 +9,7 @@ sub slagoon {
     my @monthconv = ("january", "february", "march", "april", "may", "june",
                      "july", "august", "september", "october", "november", "december");
     my $monthname = $monthconv[$ltime[4]];
-
+    my $day = $ltime[3];
 
 
     my $base = "http://shermanslagoon.com";
@@ -21,7 +21,7 @@ sub slagoon {
 	'main' => "$base/",
 	'archives' => "$base/comics/december-29-2003/",
 	'base' => "",
-	'page' => strftime("${base}/comics/${monthname}-%d-%Y/",@ltime),
+	'page' => strftime("${base}/comics/${monthname}-${day}-%Y/",@ltime),
 	'expr' => 'og.image" content="([^"]*)"'
 	};
     return $rec;
