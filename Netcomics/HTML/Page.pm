@@ -247,6 +247,19 @@ sub generate {
 				}
 			}
 
+			if (defined($rli->{'size_override'})) {
+				if (ref($rli->{'size_override'}) ne "ARRAY") {
+					# If this code is executed, something is REALLY wrong :-P
+					print STDERR "$rli->{'title'}: size_override is not an array:" .
+					        "\"$size\".  Please inform the comic maintainer.\n"
+					                if $verbose;
+				} else {
+					# Override the size with the specified value
+					$size = "WIDTH=" . $rli->{'size_override'}[0] .
+						" HEIGHT=" . $rli->{'size_override'}[1];
+				}
+			}
+
 			#catch all for size
 			unless (defined($size)) {
 				if ($skip_bad_comics && $rli->{'status'} == 1) {
