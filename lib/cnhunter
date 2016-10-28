@@ -1,0 +1,29 @@
+#-*-Perl-*-
+
+#Tack on the names of the subroutines to the list of functions
+$hof{"cnhunter"} = 0;
+
+# Code Name: Hunter
+sub cnhunter {
+    my $time = shift;
+    my @ltime = gmtime($time);
+
+    my $base = "http://www.codenamehunter.com";
+
+    my $rec = {
+	'title' => "Code Name: Hunter",
+	'author' => "RCSI Travel",
+	'type' => 'jpg',
+	'main' => "$base",
+	'archives' => "$base/archive/comic",
+	'base' => "$base/",
+	'page' => "archive/comic",
+	'exprs' => [strftime('a href="/(archive/comic/%Y/%m/%d)"',@ltime),
+	            '<img id=.comic-container[^>]*src="([^"]*)"']
+	};
+    return $rec;
+}
+
+1;
+
+
