@@ -1,0 +1,36 @@
+#-*-Perl-*-
+
+#Add the name of the subroutines to the hash of functions
+#with the number of days from today the comic is available
+$hof{"xkcd"} = 1;
+
+#xkcd http://www.xkcd.com
+sub xkcd {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my @dayconv = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    my $monthname = $monthconv[$ltime[4]];
+    my $dayname = $dayconv[$ltime[6]];
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $datestring = $dayname . ", $paddate $monthname " . ($ltime[5] + 1900);
+
+    my $rec = {
+        'title' => "xkcd",
+        'author' => "Randall Munroe",
+        'type' => 'png',
+        'main' => "https://www.xkcd.com",
+        'archives' => "https://www.xkcd.com/archive/",
+        'base' => "https://www.xkcd.com/",
+        'pagebase' => "https://www.xkcd.com/",
+        'exprbase' => "https:",
+        'page' => "rss.xml",
+        'exprs' => ['<pubDate>' . $datestring . '[^<]*<.pubDate><guid>https:([^<]*)',
+                    '"(\/\/imgs.xkcd.com\/comics\/[^"]+)"'],
+        };
+    return $rec;
+}
+
+1;
+
