@@ -8,19 +8,19 @@ sub oth {
     my @ltime = gmtime($time);
 
     my $base = 'https://overthehedgeblog.wordpress.com';
-    
+
     my $rec = {
-	'title' => "Over The Hedge",
-	'author' => "Michael Fry and T Lewis",
-	'type' => 'gif',
-	'main' => "$base/",
-	'archives' => "$base/",
+        'title' => "Over The Hedge",
+        'author' => "Michael Fry and T Lewis",
+        'type' => 'gif',
+        'main' => "$base/",
+        'archives' => "$base/",
         'referer' => "$base/",
         'base' => "",
         'page' => strftime("$base/%Y/%m/%d/",@ltime),
-        'expr' => strftime('"(https...overthehedgeblog.files.wordpress.com\/%Y\/%m\/oh%y%m%d[^?"]*)[^"]*"',@ltime)
+        'expr' => strftime('"(https...overthehedgeblog.files.wordpress.com\/%Y\/%m\/hedge%m%d%Y[^?"]*)[^"]*"',@ltime)
     };
-    
+
     return $rec;
 }
 
