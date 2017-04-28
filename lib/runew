@@ -1,0 +1,36 @@
+#-*-Perl-*-
+
+$hof{"runew"} = 1;
+
+# Runewriters http://www.runewriters.com
+sub runew {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my @dayconv = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+    my $monthname = $monthconv[$ltime[4]];
+    my $dayname = $dayconv[$ltime[6]];
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $datestring = $dayname . ", $paddate $monthname " . ($ltime[5] + 1900);
+
+    my $base = 'http://www.runewriters.com';
+
+    my $rec = {
+        'title' => "Runewriters",
+        'author' => "D. Shazzbaa Bennett",
+        'type' => 'jpg',
+        'main' => "$base/",
+        'archives' => "$base/",
+        'referer' => "$base/",
+        'base' => "$base/",
+        'page' => "rss/",
+        'exprs' => ['<pubDate>' . $datestring . '[^<]*<.pubDate><guid>http:..[^/]*runewriters.com.([^<]*)',
+                    'id="comic"><img src="([^"]*)"']
+    };
+
+    return $rec;
+}
+
+1;
+
