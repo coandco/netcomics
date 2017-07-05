@@ -2,27 +2,39 @@
 
 $hof{"cad"} = 1;
 
+# Ctrl-Alt-Del https://cad-comic.com
 sub cad {
     my $time = shift(@_);
     my @ltime = gmtime($time);
-    
-    my $date = strftime("%Y%m%d",@ltime);
-    
-    return undef unless $date > 20021022;
-    
-    my $base = 'http://www.cad-comic.com';
+
+    my $base = 'https://cad-comic.com';
 
     my $rec = {
-	'title' => 'Ctrl-Alt-Del',
-	'author' => 'Tim Buckley',
-	'type' => 'jpg',
-	'main' => "$base/",
-	'base' => '',
-	'archives' => $base . '/archives.php',
-	'page' => "$base/cad/$date",
-	'exprs' => ['(http://[^"]*cdn[^.]*\.cad-comic\.com/comics/[^"]*)"'],
-	};
+        'title' => 'Ctrl-Alt-Del',
+        'author' => 'Absath',
+        'type' => 'jpg',
+        'main' => "$base/",
+        'base' => '',
+        'archives' => $base . '/archives.php',
+        'page' => strftime("$base/wp-admin/admin-ajax.php?action=custom_cat_search&post_cat=4&post_month=%Y%m%d", @ltime)
+        };
+
+    # Ctrl-Alt-Del switched to a JSON-based method, so we grab the response
+    # and de-escape it.  Probably should actually JSON-parse it, but eh.
+    $rec->{'func'} = sub {
+        my $text = shift;
+        my @relurls = ();
+
+        if ($text =~ s/"comic":"([^"]*)"//i) {
+            my $comicurl = $1;
+            $comicurl =~ s/\\//g;
+            push (@relurls, $comicurl);
+        }
+        return @relurls;
+    };
+
     return $rec;
 }
 
 1;
+
