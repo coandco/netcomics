@@ -16,9 +16,10 @@ sub oth {
         'main' => "$base/",
         'archives' => "$base/",
         'referer' => "$base/",
+        'size_override' => [900," "],
         'base' => "",
         'page' => strftime("$base/%Y/%m/%d/",@ltime),
-        'expr' => strftime('"(https...overthehedgeblog.files.wordpress.com\/%Y\/%m\/hedge%m%d%Y[^?"]*)[^"]*"',@ltime)
+        'expr' => strftime('data-orig-file="([^"]*)"',@ltime)
     };
 
     return $rec;
