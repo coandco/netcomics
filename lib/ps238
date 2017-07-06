@@ -7,21 +7,29 @@ $hof{"ps238"} = 1;
 sub ps238 {
     my $time = shift;
     my @ltime = gmtime($time);
+    my $lexdate = strftime("%Y%m%d", @ltime);
+    my $date = "";
+
+    # PS238 switched date formats mid-stream
+    if ($lexdate > 20141024) {
+        $date = strftime("%Y-%m-%d", @ltime);
+    } else {
+        $date = strftime("%m%d%Y", @ltime);
+    }
 
     my $base = 'http://ps238.nodwick.com';
 
     my $rec = {
-	'title' => "PS238",
-	'author' => "Aaron Williams",
-	'type' => 'jpg',
-	'main' => "$base/",
-	'archives' => "$base/?p=26",
-	'base' => "$base/",
-	'page' => strftime("ps238strips/%Y-%m-%d.png", @ltime)
-	};
+        'title' => "PS238",
+        'author' => "Aaron Williams",
+        'type' => 'jpg',
+        'main' => "$base/",
+        'archives' => "$base/archive/",
+        'base' => "",
+        'page' => "$base/comic/$date/",
+        'expr' => 'og:image" content="([^"]*)"'
+        };
     return $rec;
 }
 
 1;
-
-
