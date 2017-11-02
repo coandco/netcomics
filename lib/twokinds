@@ -2,23 +2,26 @@
 
 #Add the name of the subroutines to the hash of functions
 #with the number of days from today the comic is available
-$hof{"twokinds"} = 0;
+$hof{"twokinds"} = 1;
 
 #TwoKinds http://2kinds.com
+#Right now this is only useful for showing the latest comic on the daily page, not for archives
 sub twokinds {
     my $time = shift;
     my @ltime = gmtime($time);
-    return if (($ltime[6] != 1) && ($ltime[6] != 3) && ($ltime[6] != 5));
+    #return if (($ltime[6] != 1) && ($ltime[6] != 3) && ($ltime[6] != 5));
+
+    my $base = "http://twokinds.keenspot.com";
+    my $cdn = "http://cdn.twokinds.keenspot.com";
 
     my $rec = {
         'title' => "TwoKinds",
         'author' => "Tom Fischbach",
         'type' => 'jpg',
-        'main' => "http://2kinds.com/",
-        'archives' => "http://twokinds.comicgenesis.com/archive.htm",
-        'base' => "http://twokinds.comicgenesis.com",
-        'page' => strftime("/d/%Y%m%d.html",@ltime),
-        'exprs' => [strftime("(\\/comics\\/%Y%m%d\\.jpg)",@ltime)]
+        'main' => "$base/",
+        'archives' => "$base/archive/",
+        'base' => "",
+        'page' => strftime("$cdn/comics/%Y%m%d.jpg",@ltime)
         };
     return $rec;
 }
