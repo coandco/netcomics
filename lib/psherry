@@ -1,0 +1,44 @@
+#-*-Perl-*-
+
+#Add the name of the subroutines to the hash of functions
+#with the number of days from today the comic is available
+$hof{"psherry"} = 0;
+
+#Port Sherry http://portsherry.com/archives/
+sub psherry {
+    my $time = shift;
+    my @ltime = gmtime($time);
+    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my $monthname = $monthconv[$ltime[4]];
+    my $paddate = sprintf("%02d", $ltime[3]);
+    my $year = $ltime[5] + 1900;
+    my $datestring = "$monthname $paddate, $year";
+
+
+    my $yearstr = '<h3>' . $year;
+    my $prevyearstr = '';
+    if ($year > 2008) {
+        my $prevyear = $year - 1;
+        $prevyearstr = '[^|]*<h3>' . $prevyear;
+    }
+
+    my $daystr =  $datestring . '<.span><span[^>]*><a href="([^"]*)"';
+
+    my $base = "http://portsherry.com";
+
+    my $rec = {
+        'title' => "Port Sherry",
+        'author' => "Pedro Arizpe",
+        'type' => 'png',
+        'main' => "$base",
+        'archives' => "$base/archives/",
+        'base' => "",
+        'page'  => "$base/archives/",
+        'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
+                    'og.image" content="([^"]*)"']
+        };
+    return $rec;
+}
+
+1;
