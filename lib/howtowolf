@@ -17,19 +17,19 @@ sub howtowolf {
     my $base = "http://www.howtobeawerewolf.com";
 
     my $rec = {
-	'title' => "How to be a Werewolf",
-	'author' => "Shawn Lenore",
-	'type' => 'jpg',
-	'main' => "$base",
-	'archives' => "$base/archive/",
-	'base' => "",
-	'page' => "$base/archive/",
-	'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
-	            'Jetpack[^|]*og.image" content="([^"]*)"']
-	};
+        'title' => "How to be a Werewolf",
+        'author' => "Shawn Lenore",
+        'type' => 'jpg',
+        'main' => "$base",
+        'referer' => "$base/",
+        'archives' => "$base/archive/",
+        'base' => "",
+        'page' => "$base/archive/",
+        'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
+                    'og.image" content="([^"]*)"']
+        };
     return $rec;
 }
 
 1;
-
 
