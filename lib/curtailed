@@ -8,9 +8,9 @@ $hof{"curtailed"} = 0;
 sub curtailed {
     my $time = shift;
     my @ltime = gmtime($time);
-    #return if (($ltime[6] != 1) && ($ltime[6] != 5));    
+    #return if (($ltime[6] != 1) && ($ltime[6] != 5));
 
-    my $base = "http://curtailedcomic.com";
+    my $base = "http://www.curtailedcomic.com";
 
     my $rec = {
         'title' => "Curtailed",
@@ -20,10 +20,11 @@ sub curtailed {
         'archives' => "$base/archives/",
         'base' => "",
         'page'  => strftime("$base/comic/%Y/%m/%d/",@ltime),
-	'exprs' => ['<h2 class="post-title">[^<]*<a href="([^"]*)"',
+        'exprs' => ['<div class="archivecomicframe">[^<]*<a href="([^"]*)"',
                     '<div id="comic">[^|]*?<img src="([^"]*)"']
         };
     return $rec;
 }
 
 1;
+
