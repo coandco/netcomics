@@ -7,29 +7,51 @@ $hof{"howtowolf"} = 1;
 sub howtowolf {
     my $time = shift;
     my @ltime = gmtime($time);
-    my @monthconv = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    my @monthconv = ("January", "February", "March", "April", "May", "June",
+                     "July", "August", "September", "October", "November", "December");
     my $monthname = $monthconv[$ltime[4]];
     my $year = ($ltime[5] + 1900);
     my $lastyear = ($year - 1);
-    my $datestring = strftime("$monthname %d, %Y", @ltime);
+    my $datestring = strftime("$monthname %-d, %Y", @ltime);
 
     my $base = "http://www.howtobeawerewolf.com";
 
     my $rec = {
-        'title' => "How to be a Werewolf",
-        'author' => "Shawn Lenore",
-        'type' => 'jpg',
-        'main' => "$base",
-        'referer' => "$base/",
-        'archives' => "$base/archive/",
-        'base' => "",
-        'page' => "$base/archive/",
-        'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
-                    'og.image" content="([^"]*)"']
-        };
+	'title' => "How to be a Werewolf",
+	'author' => "Shawn Lenore",
+	'type' => 'jpg',
+	'main' => "$base",
+	'referer' => "$base/",
+	'archives' => "$base/archive/",
+	'base' => "",
+	'page' => "$base/how-to-be-a-werewolf/archive/",
+	#'exprs' => [$datestring . '<.span><span[^>]*><a href="([^"]*)"',
+	#            'og.image" content="([^"]*)"']
+	};
+
+    $rec->{'func'} = sub {
+        my $text = shift;
+        my @update = ();
+        my $update = {};
+        if ($text =~ s/option value="([^"]*)">$datestring//i) {
+            my $comicurl = $1;
+            push @update, {
+                'page' => "$base/$comicurl",
+                'func' => sub {
+                    my $newtext = shift;
+                    my @relurls = ();
+                    if ($newtext =~ s/<img [^>]*src="([^"]*)"[^>]*id="cc-comic"//i) {
+                        my $file = $1;
+                        push(@relurls, $file);
+                    }
+                    return @relurls;
+                }
+            };
+        }
+        return @update;
+    };
+
     return $rec;
 }
 
 1;
-
