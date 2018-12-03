@@ -6,6 +6,12 @@ $hof{"mf"} = 0;
 sub mf {
     my $time = shift;
     my @ltime = gmtime($time);
+    my @monthconv = ("january", "february", "march", "april", "may", "june",
+                     "july", "august", "september", "october", "november", "december");
+    my $monthname = $monthconv[$ltime[4]];
+    my $year = ($ltime[5] + 1900);
+    my $lastyear = ($year - 1);
+    my $datestring = strftime("$monthname-%-d-%Y", @ltime);
 
     my $base = 'http://mallardfillmore.com';
     
@@ -17,7 +23,7 @@ sub mf {
 	'archives' => "$base/",
         'referer' => "$base/",
         'base' => '',
-        'page' => strftime("$base/%Y/%m/%d/?post_type=king_comic",@ltime),
+        'page' => "$base/comics/$datestring/",
         'expr' => 'og.image. content="([^"]*)"'
     };
     
