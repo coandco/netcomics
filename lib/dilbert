@@ -25,7 +25,7 @@ sub dilbert {
 	'archives' => "http://www.dilbert.com/",
 	'base' => "",
 	'page' => strftime("http://dilbert.com/strip/%Y-%m-%d", @ltime),
-	'expr' => 'class="[^"]*img-comic[^"]*"[^>]*src="([^"]*)"'
+	'expr' => 'og:image" content="([^"]*)"'
 	};
     return $rec;
 }
