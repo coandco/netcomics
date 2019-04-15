@@ -1,6 +1,6 @@
 #-*-Perl-*-
 
-foreach (qw(blondie mf ba bb retail slagoon zt)) {
+foreach (qw(blondie mf ba bb retail slagoon zt hi)) {
     $hof{$_} = 0;
 }
 
@@ -72,6 +72,11 @@ sub slagoon {
 sub zt {
     my $time = shift;
     return comicskingdom($time, "Zits", "Jerry Scott and Jim Borgman", "zits");
+}
+
+sub hi {
+    my $time = shift;
+    return comicskingdom($time, "Hi and Lois", "Brian Walker, Greg Walker and Chance Browne", "hi-and-lois");
 }
 
 1;
