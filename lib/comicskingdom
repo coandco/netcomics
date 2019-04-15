@@ -1,0 +1,77 @@
+#-*-Perl-*-
+
+foreach (qw(blondie mf ba bb retail slagoon zt)) {
+    $hof{$_} = 0;
+}
+
+sub comicskingdom {
+    #get arguments (fp stands for file prefix, syn for syndicate)
+    my ($time,$title,$author,$id) = @_;    
+    my @ltime = gmtime($time);
+
+    my $base = "https://www.comicskingdom.com";
+
+    my $rec = {
+        'title' => $title,
+        'author' => $author,
+        'type' => 'jpg',
+        'size_override' => [900, " "],
+        'main' => "$base/$id/",
+        'archives' => "$base/$id/archive",
+        'base' => "",
+        'page' => strftime("$base/$id/%Y-%m-%d/", @ltime),
+        };
+
+    $rec->{'func'} = sub {
+        my $text = shift;
+        my @relurls = ();
+        while(1) {
+            if ($text =~ s/og:image" content="([^"]*)"//i) {
+                 my $file = $1 =~ s/\&amp;/&/gr;
+                 push(@relurls,$file) unless grep(/$file/, @relurls);
+            } else {
+                 last;
+            }
+        }
+        return reverse @relurls;
+    };
+
+    return $rec;
+}
+
+sub blondie {
+    my $time = shift;
+    return comicskingdom($time, "Blondie", "Dean Young and Denis Lebrun", "blondie");
+}
+
+sub mf {
+    my $time = shift;
+    return comicskingdom($time, "Mallard Fillmore", "Bruce Tinsley", "mallard-fillmore");
+}
+
+sub ba {
+    my $time = shift;
+    return comicskingdom($time, "Baby Blues", "Rick Kirkman and Jerry Scott", "baby-blues");
+}
+
+sub bb {
+    my $time = shift;
+    return comicskingdom($time, "Beetle Bailey", "Mort Walker", "beetle-bailey-1");
+}
+
+sub retail {
+    my $time = shift;
+    return comicskingdom($time, "Retail", "Norm Feuti", "retail");
+}
+
+sub slagoon {
+    my $time = shift;
+    return comicskingdom($time, "Shermans Lagoon", "Jim Toomey", "sherman-s-lagoon");
+}
+
+sub zt {
+    my $time = shift;
+    return comicskingdom($time, "Zits", "Jerry Scott and Jim Borgman", "zits");
+}
+
+1;
