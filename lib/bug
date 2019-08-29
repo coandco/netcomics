@@ -2,7 +2,7 @@
 
 #Add the name of the subroutines to the hash of functions
 #with the number of days from today the comic is available
-$hof{"bug"} = 1;
+$hof{"bug"} = 2;
 
 #Bug Martini http://www.bugmartini.com/
 sub bug {
@@ -28,14 +28,16 @@ sub bug {
         'title' => "Bug",
         'author' => "Adam Huber",
         'type' => 'gif',
+        'size_override' => [900, " "],
         'main' => "$base",
         'archives' => "$base/archives/",
         'base' => "",
         'page'  => "http://www.bugmartini.com/archives/",
-	'exprs' => [$yearstr . $daystr . $prevyearstr,
-                    'twitter.image" content="([^"]*www.bugmartini.com[^?]*)\?[^"]*"']
+        'exprs' => [$yearstr . $daystr . $prevyearstr,
+                    'og.image" content="([^"]*)"']
         };
     return $rec;
 }
 
 1;
+
