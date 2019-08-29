@@ -4,13 +4,13 @@
 #with the number of days from today the comic is available
 $hof{"techfox"} = 0;
 
-#21st Century Fox http://techfox.comicgenesis.com/
+#21st Century Fox http://www.hirezfox.com/21cf/
 sub techfox {
     my $time = shift;
     my @ltime = gmtime($time);
-    #return if (($ltime[6] != 1) && ($ltime[6] != 5));    
+    #return if (($ltime[6] != 1) && ($ltime[6] != 5));
 
-    my $base = "http://techfox.comicgenesis.com";
+    my $base = "http://www.hirezfox.com/21cf";
     my $date = strftime("%Y%m%d", @ltime);
 
     my $rec = {
