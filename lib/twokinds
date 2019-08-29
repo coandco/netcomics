@@ -21,7 +21,7 @@ sub twokinds {
         'main' => "$base/",
         'archives' => "$base/archive/",
         'base' => "",
-        'page' => strftime("$cdn/comics/%Y%m%d.jpg",@ltime)
+        'page' => strftime("$cdn/comics/%Y%m%d.png",@ltime)
         };
     return $rec;
 }
